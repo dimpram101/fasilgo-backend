@@ -1,5 +1,6 @@
 import Peminjam from "./Peminjam.js"
 import Pengelola from "./Pengelola.js";
+import User from "./User.js";
 import UserKTP from "./UserKTP.js";
 import Facility from "./Facility.js";
 import FacilityPhoto from "./FacilityPhoto.js";
@@ -17,13 +18,13 @@ Peminjam.hasMany(Review, {
 
 Review.belongsTo(Peminjam);
 
-Facility.hasOne(Pengelola, {
+Facility.hasOne(User, {
   foreignKey: "facilityId",
   onDelete: "CASCADE",
   onUpdate: "CASCADE"
 });
 
-Pengelola.belongsTo(Facility);
+User.belongsTo(Facility);
 
 Facility.hasMany(Review, {
   foreignKey: "facilityId",
@@ -49,13 +50,13 @@ Facility.hasMany(FacilityAvailability, {
 
 FacilityAvailability.belongsTo(Facility);
 
-Peminjam.hasMany(Transaction, {
+User.hasMany(Transaction, {
   foreignKey: "borrowerId",
   onDelete: "CASCADE",
   onUpdate: "CASCADE"
 })
 
-Transaction.belongsTo(Peminjam);
+Transaction.belongsTo(User);
 
 Transaction.hasMany(TransactionPhoto, {
   foreignKey: "transactionId",
@@ -71,34 +72,40 @@ Transaction.hasOne(TransactionDocument, {
 
 TransactionDocument.belongsTo(Transaction);
 
-Peminjam.hasOne(UserKTP, {
+User.hasOne(UserKTP, {
   foreignKey: "userId",
-  constraints: false,
-  scope: {
-    userType: "borrower"
-  }
-});
+  onDelete: "CASCADE",
+  onUpdate: "CASCADE"
+})
+UserKTP.belongsTo(User);
 
-Pengelola.hasOne(UserKTP, {
-  foreignKey: "userId",
-  constraints: false,
-  scope: {
-    userType: "manager"
-  }
-});
+// Peminjam.hasOne(UserKTP, {
+//   foreignKey: "userId",
+//   constraints: false,
+//   scope: {
+//     userType: "borrower"
+//   }
+// });
 
-UserKTP.belongsTo(Peminjam, {
-  foreignKey: "userId",
-  constraints: false
-});
-UserKTP.belongsTo(Pengelola, {
-  foreignKey: "userId",
-  constraints: false
-});
+// Pengelola.hasOne(UserKTP, {
+//   foreignKey: "userId",
+//   constraints: false,
+//   scope: {
+//     userType: "manager"
+//   }
+// });
+
+// UserKTP.belongsTo(Peminjam, {
+//   foreignKey: "userId",
+//   constraints: false
+// });
+// UserKTP.belongsTo(Pengelola, {
+//   foreignKey: "userId",
+//   constraints: false
+// });
 
 export {
-  Peminjam,
-  Pengelola,
+  User,
   UserKTP,
   Review,
   Facility,

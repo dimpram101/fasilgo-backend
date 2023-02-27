@@ -1,7 +1,7 @@
-import db from "../database/db-config.js"
-import { DataTypes } from "sequelize"
+import db from "../database/db-config.js";
+import { DataTypes } from "sequelize";
 
-const Peminjam = db.define('borrowers', {
+const User = db.define('managers', {
   fullname: {
     type: DataTypes.STRING,
     allowNull: false
@@ -26,10 +26,19 @@ const Peminjam = db.define('borrowers', {
         msg: "The password length should be between 7 and 20 characters"
       }
     }
+  },
+  isAdmin: {
+    type: DataTypes.BOOLEAN,
+    defaultValue: false,
+    allowNull: true,
+  },
+  facilityId: {
+    type: DataTypes.INTEGER,
+    allowNull: true
   }
 }, {
   timestamps: true,
   freezeTableName: true
 })
 
-export default Peminjam;
+export default User;

@@ -6,10 +6,6 @@ const UserKTP = db.define('ktp_user', {
     type: DataTypes.INTEGER,
     allowNull: false
   },
-  userType: {
-    type: DataTypes.ENUM(['borrower', 'manager']),
-    allowNull: false
-  },
   imageName: {
     type: DataTypes.STRING,
     allowNull: true,

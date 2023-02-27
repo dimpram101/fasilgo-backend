@@ -1,7 +1,7 @@
 import express from "express";
 import dotenv from "dotenv";
 import db from "./database/db-config.js";
-import { Peminjam, UserKTP, Pengelola } from "./models/Association.js";
+import { User, UserKTP } from "./models/Association.js";
 
 dotenv.config();
 
@@ -16,17 +16,7 @@ try {
 }
 
 app.get('/', async (req, res) => {
-  const peminjam = await Peminjam.findAll({
-    include: {
-      model: UserKTP
-    }
-  })
-
-  const pengelola = await Pengelola.findAll({
-    include: {
-      model: UserKTP
-    }
-  });
+  
 
 
   res.json({ peminjam, pengelola })
