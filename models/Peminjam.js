@@ -13,10 +13,6 @@ const Peminjam = db.define('borrowers', {
       isEmail: true
     }
   },
-  ktp: {
-    type: DataTypes.STRING,
-    allowNull: true
-  },
   nomorHP: {
     type: DataTypes.STRING,
     allowNull: false

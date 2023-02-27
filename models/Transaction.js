@@ -10,6 +10,10 @@ const Transaction = db.define('transactions', {
     type: DataTypes.STRING,
     allowNull: false
   },
+  keteranganPenggunaan: {
+    type: DataTypes.TEXT,
+    allowNull: false
+  },
   status: {
     type: DataTypes.ENUM(['Menunggu', 'Terverifikasi', 'Selesai', 'Ditolak', 'Revisi'])
   }

@@ -3,7 +3,7 @@ import { DataTypes } from "sequelize";
 
 const FacilityPhoto = db.define('facility_photos', {
   facilityId: {
-    type: DataTypes.STRING,
+    type: DataTypes.INTEGER,
     allowNull: false
   },
   photoTitle: {

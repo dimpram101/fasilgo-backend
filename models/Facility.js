@@ -17,10 +17,6 @@ const Facility = db.define('facilities', {
   rekening: {
     type: DataTypes.STRING,
     allowNull: false
-  },
-  status: {
-    type: DataTypes.ENUM(['Tersedia', 'Tidak tersedia']),
-    allowNull: false
   }
 }, {
   timestamps: true,

@@ -1,18 +1,14 @@
 import express from "express";
 import dotenv from "dotenv";
 import db from "./database/db-config.js";
-import { Facility, Review, Peminjam } from "./models/Association.js";
+import { Peminjam, UserKTP, Pengelola } from "./models/Association.js";
 
 dotenv.config();
 
 const app = express();
 
 try {
-  // await db.authenticate();
-  // db.drop();
-  Peminjam.sync();
-  Facility.sync();
-  Review.sync();
+  await db.sync();
 
   console.log("Db connected")
 } catch (error) {
@@ -20,23 +16,20 @@ try {
 }
 
 app.get('/', async (req, res) => {
-  const facility = await Facility.findAll({
-    include: {
-      model: Review
-    }
-  })
-
   const peminjam = await Peminjam.findAll({
     include: {
-      model: Review
+      model: UserKTP
     }
   })
 
-  const review = await Review.findAll({
-    include: [Facility, Peminjam]
-  })
+  const pengelola = await Pengelola.findAll({
+    include: {
+      model: UserKTP
+    }
+  });
 
-  res.json({ facility, peminjam, review })
+
+  res.json({ peminjam, pengelola })
 })
 
 app.listen(process.env.PORT, () => {

@@ -13,10 +13,6 @@ const Pengelola = db.define('managers', {
       isEmail: true
     }
   },
-  ktp: {
-    type: DataTypes.STRING,
-    allowNull: true
-  },
   nomorHP: {
     type: DataTypes.STRING,
     allowNull: false
@@ -33,7 +29,7 @@ const Pengelola = db.define('managers', {
   },
   isAdmin: {
     type: DataTypes.BOOLEAN,
-    defaultValue: true,
+    defaultValue: false,
     allowNull: true,
   },
   facilityId: {
