@@ -2,12 +2,12 @@ import db from "../database/db-config.js";
 import { DataTypes } from "sequelize";
 
 const Transaction = db.define('transactions', {
-  borrowerId: {
+  userId: {
     type: DataTypes.INTEGER,
     allowNull: false
   },
   atasNama: {
-    type: DataTypes.STRING,
+    type: DataTypes.STRING(20),
     allowNull: false
   },
   keteranganPenggunaan: {

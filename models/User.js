@@ -1,31 +1,25 @@
 import db from "../database/db-config.js";
 import { DataTypes } from "sequelize";
 
-const User = db.define('managers', {
+const User = db.define('users', {
   fullname: {
-    type: DataTypes.STRING,
+    type: DataTypes.STRING(30),
     allowNull: false
   },
   email: {
-    type: DataTypes.STRING,
+    type: DataTypes.STRING(30),
     allowNull: false,
     validate: {
       isEmail: true
     }
   },
   nomorHP: {
-    type: DataTypes.STRING,
+    type: DataTypes.STRING(14),
     allowNull: false
   },
   password: {
     type: DataTypes.STRING,
-    allowNull: false,
-    validate: {
-      len: {
-        args: [7, 20],
-        msg: "The password length should be between 7 and 20 characters"
-      }
-    }
+    allowNull: false
   },
   isAdmin: {
     type: DataTypes.BOOLEAN,

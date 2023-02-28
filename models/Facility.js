@@ -3,7 +3,7 @@ import { DataTypes } from "sequelize";
 
 const Facility = db.define('facilities', {
   namaFasilitas: {
-    type: DataTypes.STRING,
+    type: DataTypes.STRING(30),
     allowNull: false
   },
   alamat: {
@@ -17,7 +17,7 @@ const Facility = db.define('facilities', {
   rekening: {
     type: DataTypes.STRING,
     allowNull: false
-  }
+  },
 }, {
   timestamps: true,
   freezeTableName: true

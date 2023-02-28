@@ -2,7 +2,7 @@ import db from "../database/db-config.js";
 import { DataTypes } from "sequelize";
 
 const Review = db.define('reviews', {
-  borrowerId: {
+  userId: {
     type: DataTypes.INTEGER
   },
   facilityId: {

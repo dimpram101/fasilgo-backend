@@ -1,5 +1,3 @@
-import Peminjam from "./Peminjam.js"
-import Pengelola from "./Pengelola.js";
 import User from "./User.js";
 import UserKTP from "./UserKTP.js";
 import Facility from "./Facility.js";
@@ -10,13 +8,13 @@ import TransactionDocument from "./TransactionDocument.js";
 import TransactionPhoto from "./TransactionPhoto.js";
 import FacilityAvailability from "./FacilityAvailability.js";
 
-Peminjam.hasMany(Review, {
-  foreignKey: "borrowerId",
+User.hasMany(Review, {
+  foreignKey: "userId",
   onDelete: "CASCADE",
   onUpdate: "CASCADE"
 })
 
-Review.belongsTo(Peminjam);
+Review.belongsTo(User);
 
 Facility.hasOne(User, {
   foreignKey: "facilityId",
@@ -51,12 +49,14 @@ Facility.hasMany(FacilityAvailability, {
 FacilityAvailability.belongsTo(Facility);
 
 User.hasMany(Transaction, {
-  foreignKey: "borrowerId",
+  foreignKey: "userId",
   onDelete: "CASCADE",
   onUpdate: "CASCADE"
 })
 
-Transaction.belongsTo(User);
+Transaction.belongsTo(User, {
+  foreignKey: "userId"
+});
 
 Transaction.hasMany(TransactionPhoto, {
   foreignKey: "transactionId",

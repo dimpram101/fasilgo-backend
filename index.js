@@ -1,25 +1,21 @@
 import express from "express";
 import dotenv from "dotenv";
-import db from "./database/db-config.js";
-import { User, UserKTP } from "./models/Association.js";
+import authRoute from "./routes/authRoutes.js";
+import bodyParser from "body-parser";
+import cookieParser from "cookie-parser";
+import verifyToken from "./middlewares/verifyToken.js";
 
 dotenv.config();
 
 const app = express();
 
-try {
-  await db.sync();
+app.use(express.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(cookieParser());
+app.use(authRoute);
 
-  console.log("Db connected")
-} catch (error) {
-  console.log(error);
-}
-
-app.get('/', async (req, res) => {
-  
-
-
-  res.json({ peminjam, pengelola })
+app.get('/', [verifyToken], async (req, res) => {
+  res.status(200).json({ msg: "OK" })
 })
 
 app.listen(process.env.PORT, () => {
