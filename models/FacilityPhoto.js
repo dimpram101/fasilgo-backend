@@ -8,11 +8,11 @@ const FacilityPhoto = db.define('facility_photos', {
   },
   photoTitle: {
     type: DataTypes.STRING,
-    allowNull: false
+    allowNull: true
   },
   path: {
     type: DataTypes.STRING,
-    allowNull: false
+    allowNull: true
   }
 }, {
   timestamps: false,

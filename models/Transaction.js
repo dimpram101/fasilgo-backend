@@ -6,6 +6,10 @@ const Transaction = db.define('transactions', {
     type: DataTypes.INTEGER,
     allowNull: false
   },
+  facilityId: {
+    type: DataTypes.INTEGER,
+    allowNull: false
+  },
   atasNama: {
     type: DataTypes.STRING(20),
     allowNull: false
@@ -14,12 +18,21 @@ const Transaction = db.define('transactions', {
     type: DataTypes.TEXT,
     allowNull: false
   },
+  tanggalPeminjaman: {
+    type: DataTypes.DATEONLY,
+    allowNull: false,
+  },
+  tanggalSelesai: {
+    type: DataTypes.DATEONLY,
+    allowNull: false
+  },
   status: {
-    type: DataTypes.ENUM(['Menunggu', 'Terverifikasi', 'Selesai', 'Ditolak', 'Revisi'])
+    type: DataTypes.ENUM(['Menunggu', 'Terverifikasi', 'Selesai', 'Ditolak', 'Revisi']),
+    defaultValue: "Menunggu"
   }
 }, {
   timestamps: true,
-  createdAt: 'tanggalTransaksi',
+  freezeTableName: true
 })
 
 export default Transaction;

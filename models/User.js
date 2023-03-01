@@ -8,10 +8,7 @@ const User = db.define('users', {
   },
   email: {
     type: DataTypes.STRING(30),
-    allowNull: false,
-    validate: {
-      isEmail: true
-    }
+    allowNull: false
   },
   nomorHP: {
     type: DataTypes.STRING(14),
@@ -25,10 +22,6 @@ const User = db.define('users', {
     type: DataTypes.BOOLEAN,
     defaultValue: false,
     allowNull: true,
-  },
-  facilityId: {
-    type: DataTypes.INTEGER,
-    allowNull: true
   }
 }, {
   timestamps: true,

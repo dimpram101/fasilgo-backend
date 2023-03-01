@@ -9,20 +9,18 @@ import TransactionPhoto from "./TransactionPhoto.js";
 import FacilityAvailability from "./FacilityAvailability.js";
 
 User.hasMany(Review, {
-  foreignKey: "userId",
-  onDelete: "CASCADE",
-  onUpdate: "CASCADE"
+  foreignKey: "userId"
 })
 
 Review.belongsTo(User);
 
-Facility.hasOne(User, {
-  foreignKey: "facilityId",
-  onDelete: "CASCADE",
-  onUpdate: "CASCADE"
+User.hasOne(Facility, {
+  foreignKey: "pengelolaId"
 });
 
-User.belongsTo(Facility);
+Facility.belongsTo(User, {
+  foreignKey: "pengelolaId"
+});
 
 Facility.hasMany(Review, {
   foreignKey: "facilityId",
@@ -38,7 +36,17 @@ Facility.hasMany(FacilityPhoto, {
   onUpdate: "CASCADE"
 })
 
-FacilityPhoto.belongsTo(Facility);
+FacilityPhoto.belongsTo(Facility, {
+  foreignKey: "facilityId"
+});
+
+Facility.hasMany(Transaction, {
+  foreignKey: "facilityId"
+})
+
+Transaction.belongsTo(Facility, {
+  foreignKey: "facilityId"
+})
 
 Facility.hasMany(FacilityAvailability, {
   foreignKey: "facilityId",
@@ -46,12 +54,12 @@ Facility.hasMany(FacilityAvailability, {
   onUpdate: "CASCADE"
 });
 
-FacilityAvailability.belongsTo(Facility);
+FacilityAvailability.belongsTo(Facility, {
+  foreignKey: "facilityId",
+});
 
 User.hasMany(Transaction, {
-  foreignKey: "userId",
-  onDelete: "CASCADE",
-  onUpdate: "CASCADE"
+  foreignKey: "userId"
 })
 
 Transaction.belongsTo(User, {
@@ -70,7 +78,9 @@ Transaction.hasOne(TransactionDocument, {
   foreignKey: "transactionId"
 })
 
-TransactionDocument.belongsTo(Transaction);
+TransactionDocument.belongsTo(Transaction, { 
+  as: "transDoc" 
+});
 
 User.hasOne(UserKTP, {
   foreignKey: "userId",
@@ -78,31 +88,6 @@ User.hasOne(UserKTP, {
   onUpdate: "CASCADE"
 })
 UserKTP.belongsTo(User);
-
-// Peminjam.hasOne(UserKTP, {
-//   foreignKey: "userId",
-//   constraints: false,
-//   scope: {
-//     userType: "borrower"
-//   }
-// });
-
-// Pengelola.hasOne(UserKTP, {
-//   foreignKey: "userId",
-//   constraints: false,
-//   scope: {
-//     userType: "manager"
-//   }
-// });
-
-// UserKTP.belongsTo(Peminjam, {
-//   foreignKey: "userId",
-//   constraints: false
-// });
-// UserKTP.belongsTo(Pengelola, {
-//   foreignKey: "userId",
-//   constraints: false
-// });
 
 export {
   User,

@@ -18,6 +18,18 @@ const Facility = db.define('facilities', {
     type: DataTypes.STRING,
     allowNull: false
   },
+  koordinatX: {
+    type: DataTypes.DOUBLE,
+    allowNull: true
+  },
+  koordinatY: {
+    type: DataTypes.DOUBLE,
+    allowNull: true
+  },
+  pengelolaId: {
+    type: DataTypes.INTEGER,
+    allowNull: true
+  }
 }, {
   timestamps: true,
   freezeTableName: true

@@ -59,6 +59,55 @@ const userLoginSchema = Joi.object({
     })    
 })
 
+const editUserSchema = Joi.object({
+  fullname: Joi.string()
+    .max(30)
+    .required()
+    .messages({
+      "any.required": "Nama tidak boleh kosong!",
+      "string.max": "Nama tidak boleh lebih dari 30 karakter!"
+    }),
+  email: Joi.string()
+    .email()
+    .max(30)
+    .required()
+    .messages({
+      "string.email": "Harap masukan email yang benar!",
+      "any.required": "Email tidak boleh kosong!",
+      "string.max": "Email tidak boleh lebih dari 30 karakter!"
+    }),
+  nomorHP: Joi.string()
+    .max(14)
+    .pattern(/^[0-9]+$/)
+    .required()
+    .messages({
+      "any.required": "Nomor HP tidak boleh kosong!",
+      "string.max": "Nomor HP tidak boleh lebih dari 14 karakter!",
+      "string.pattern.base": "Harap masukan nomor HP yang benar!"
+    })
+})
+
+const transactionSchema = Joi.object({
+  atasNama: Joi.string()
+    .required()
+    .messages({
+      "any.required" : "Atas nama tidak boleh kosong!"
+    }),
+  keteranganPenggunaan: Joi.string()
+    .required()
+    .messages({
+      "any.required" : "Harap isikan keterangan penggunaan!"
+    }),
+  tanggalPeminjaman: Joi.required()
+    .messages({
+      "any.required" : "Harap isi tanggal peminjaman!"
+    }),
+  tanggalSelesai: Joi.ref('tanggalPeminjaman')
+})
+
+
+
+
 // try {
 //   const user = await userRegistrationSchema.validateAsync({
 //     fullname: "Dimas Pramudya",
@@ -75,4 +124,4 @@ const userLoginSchema = Joi.object({
 // }
 
 
-export { userRegistrationSchema, userLoginSchema };
+export { userRegistrationSchema, userLoginSchema, editUserSchema, transactionSchema };
