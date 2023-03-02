@@ -38,8 +38,8 @@ export const createTransaction = async (req, res) => {
     ...validatedData,
     userId,
     facilityId
-  }).then(() => res.status(201).json({ 
-    msg: "Pengajuan kamu telah diajukan, harap menunggu verifikasi!" 
+  }).then(() => res.status(201).json({
+    msg: "Pengajuan kamu telah diajukan, harap menunggu verifikasi!"
   })).catch(err => res.status(400).json({
     msg: "Pengajuan gagal",
     payload: err
@@ -48,13 +48,25 @@ export const createTransaction = async (req, res) => {
 
 export const insertTransactionPayment = async (req, res) => {
   const userId = res.locals.userId;
+  const { transactionId } = req.params;
   const { photoTitle } = req.body;
+  const files = req.files;
 
-  let path = "";
-  photoTitle.split(" ").forEach(title => {
-    path += title
-  });
-  path += ".jpg";
+  try {
+    files.forEach(async (file) => {
+      await TransactionPhoto.create({
+        transactionId,
+        photoTitle,
+        path: file.path,
+        userId
+      })
+    })
+
+    return res.status(201).json({ msg: "Berhasil menambahkan bukti transaksi!" })
+
+  } catch (error) {
+    res.status(400).json({ msg: "Gagal menambahkan bukti transaksi!", payload: error })
+  }
 
 
   console.log(path);

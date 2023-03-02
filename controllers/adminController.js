@@ -22,7 +22,7 @@ const getAllFacilities = async (req, res) => {
     ]
   }).then(facilities => {
     if (!facilities) {
-      return res.status(400).json({ msg: "Gagal mendapatkan data fasilitas karena tidak ada data apapun", payload: null })
+      return res.status(404).json({ msg: "Gagal mendapatkan data fasilitas karena tidak ada data apapun", payload: null })
     }
 
     return res.status(200).json({ msg: "Berhasil mendapatkan data fasilitas", payload: facilities })
@@ -47,7 +47,7 @@ const getFacilityById = async (req, res) => {
     });
 
     if (!facility) {
-      return res.status(400).json({ msg: "Gagal mendapatkan data fasilitas karena tidak ada data apapun", payload: null })
+      return res.status(404).json({ msg: "Gagal mendapatkan data fasilitas karena tidak ada data apapun", payload: null })
     }
 
     return res.status(200).json({ msg: `Berhasil mendapatkan data fasilitas dengan id : ${id}`, payload: facility });
