@@ -9,6 +9,10 @@ const UserKTP = db.define('ktp_user', {
   imageName: {
     type: DataTypes.STRING,
     allowNull: true,
+  },
+  path: {
+    type: DataTypes.STRING,
+    allowNull: false
   }
 }, {
   freezeTableName: true,

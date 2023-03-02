@@ -11,7 +11,7 @@ import bcrypt from "bcrypt";
 
 // Facility
 const getAllFacilities = async (req, res) => {
-  await Facility.findAll({
+  Facility.findAll({
     include: [
       {
         model: User,
@@ -113,7 +113,7 @@ const editFacility = async (req, res) => {
 const deleteFacility = async (req, res) => {
   const { id } = req.params;
 
-  await Facility.destroy({
+  Facility.destroy({
     where: {
       id
     }
@@ -130,9 +130,10 @@ const addFacilityPhoto = async (req, res) => {
     await FacilityPhoto.create({
       ...photo,
       facilityId: id
-    });
-  }).then(() => res.status(200).json({ msg: "Foto berhasil ditambahkan!" }))
-    .catch(err => res.status(200).json({ msg: "Foto gagal ditambahkan!", payload: err }))
+    }).catch(err => res.status(200).json({ msg: "Foto gagal ditambahkan!", payload: err }))
+  })
+
+  return res.status(200).json({ msg: "Foto berhasil ditambahkan!" });
 }
 
 const deleteFacilityPhoto = async (req, res) => {
@@ -156,9 +157,6 @@ const deleteFacilityPhoto = async (req, res) => {
   } catch (error) {
     return res.status(400).json({ msg: "Gagal menghapus foto!", payload: error })
   }
-
-  // .then(() => res.status(200).json({ msg: "Berhasil menghapus foto!" }))
-  //   .catch(err => res.status(400).json({ msg: "Gagal menghapus foto!", payload: err }))
 }
 
 // Akun Pengelola
@@ -173,7 +171,7 @@ const createAkunPengelola = async (req, res) => {
     const genSalt = await bcrypt.genSalt(10);
     const hashPassword = await bcrypt.hash(user.password, genSalt);
 
-    await User.create({
+    User.create({
       ...user,
       password: hashPassword
     }).then(user => res.status(201).json({ msg: "Berhasil membuat akun!", payload: user }));
@@ -186,7 +184,7 @@ const createAkunPengelola = async (req, res) => {
 const deleteAkunPengelola = async (req, res) => {
   const { pengelolaId } = req.body
 
-  await User.destroy({
+  User.destroy({
     where: {
       id: pengelolaId
     }
@@ -197,7 +195,7 @@ const deleteAkunPengelola = async (req, res) => {
 
 // Transaction
 const getAllTransaction = async (req, res) => {
-  await Transaction.findAll({
+  Transaction.findAll({
     include: [
       { model: TransactionDocument },
       { model: TransactionPhoto }
@@ -212,7 +210,7 @@ const getAllTransaction = async (req, res) => {
 const getTransactionById = async (req, res) => {
   const { id } = req.params;
 
-  await Transaction.findOne({
+  Transaction.findOne({
     where: { id },
     include: [
       { model: TransactionDocument },
@@ -220,7 +218,7 @@ const getTransactionById = async (req, res) => {
     ]
   }).then(transaction => {
     if (!transaction) {
-      return res.status(404).json({ msg: `Tidak ditemukan data transaksi dengan id: ${id}`, payload: null})
+      return res.status(404).json({ msg: `Tidak ditemukan data transaksi dengan id: ${id}`, payload: null })
     }
     return res.status(200).json({ msg: `Berhasil mendapatkan data transaksi dengan id: ${id}`, payload: transaction })
   }).catch(err => {
@@ -229,9 +227,10 @@ const getTransactionById = async (req, res) => {
 }
 
 const updateTransaction = async (req, res) => {
+  const { id } = req.params;
   const { status } = req.body;
 
-  await Transaction.update({ status })
+  Transaction.update({ status }, { where: { id } })
     .then(result => res.status(200).json({ msg: "Transaksi berhasil diperbaharui!", payload: result }))
     .catch(err => res.status(400).json({ msg: "Transaksi gagal diperbaharui!", payload: err }));
 }

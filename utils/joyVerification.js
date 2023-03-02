@@ -56,7 +56,7 @@ const userLoginSchema = Joi.object({
       "any.required": "Password tidak boleh kosong!",
       "string.min": "Password tidak boleh kurang dari 8 karakter!",
       "string.max": "Password tidak boleh lebih dari 30 karakter!"
-    })    
+    })
 })
 
 const editUserSchema = Joi.object({
@@ -91,18 +91,21 @@ const transactionSchema = Joi.object({
   atasNama: Joi.string()
     .required()
     .messages({
-      "any.required" : "Atas nama tidak boleh kosong!"
+      "any.required": "Atas nama tidak boleh kosong!"
     }),
   keteranganPenggunaan: Joi.string()
     .required()
     .messages({
-      "any.required" : "Harap isikan keterangan penggunaan!"
+      "any.required": "Harap isikan keterangan penggunaan!"
     }),
   tanggalPeminjaman: Joi.required()
     .messages({
-      "any.required" : "Harap isi tanggal peminjaman!"
+      "any.required": "Harap isi tanggal peminjaman!"
     }),
-  tanggalSelesai: Joi.ref('tanggalPeminjaman')
+  tanggalSelesai: Joi.required()
+    .messages({
+      "any.required": "Harap isi tanggal selesai!"
+    }),
 })
 
 

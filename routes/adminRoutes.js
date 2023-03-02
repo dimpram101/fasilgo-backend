@@ -11,6 +11,7 @@ import {
   getAllTransaction, 
   getTransactionById
 } from "../controllers/adminController.js";
+import facilityStorage from "../utils/storage/facilityStorage.js";
 
 const adminRoutes = Router();
 
@@ -18,7 +19,7 @@ adminRoutes.post('/create-akun-pengelola', createAkunPengelola)
 
 adminRoutes.get('/facility', getAllFacilities)
 adminRoutes.get('/facility/:id', getFacilityById)
-adminRoutes.post('/create-new-facility', insertNewFacility)
+adminRoutes.post('/create-new-facility', [facilityStorage.array('files')], insertNewFacility)
 adminRoutes.put('/facility/:id', editFacility)
 adminRoutes.delete('/facility/:id', deleteFacility)
 
