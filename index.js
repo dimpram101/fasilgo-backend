@@ -1,4 +1,5 @@
 import express from "express";
+import cors from "cors"
 import dotenv from "dotenv";
 import authRoute from "./routes/authRoutes.js";
 import bodyParser from "body-parser";
@@ -13,13 +14,21 @@ dotenv.config();
 
 const app = express();
 
+app.use(cors({
+  AccessControlAllowOrigin: "*", origin: "http://127.0.0.1:5173", credentials: true
+}))
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static('public'))
+
+/////////////////////////////
+// Routes
+/////////////////////////////
 app.use(authRoute);
-app.use('/user', [verifyToken], userRoute)
+app.use('/user', userRoute)
 app.use('/admin', adminRoutes);
+
 // try {
 //   await db.sync();
 //   console.log("DB Connected");

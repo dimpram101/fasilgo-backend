@@ -3,11 +3,11 @@ import { DataTypes } from "sequelize";
 
 const User = db.define('users', {
   fullname: {
-    type: DataTypes.STRING(30),
+    type: DataTypes.STRING,
     allowNull: false
   },
   email: {
-    type: DataTypes.STRING(30),
+    type: DataTypes.STRING,
     allowNull: false
   },
   nomorHP: {

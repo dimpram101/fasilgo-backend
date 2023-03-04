@@ -11,7 +11,7 @@ const Transaction = db.define('transactions', {
     allowNull: false
   },
   atasNama: {
-    type: DataTypes.STRING(20),
+    type: DataTypes.STRING,
     allowNull: false
   },
   keteranganPenggunaan: {

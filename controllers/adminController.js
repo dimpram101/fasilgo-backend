@@ -8,8 +8,9 @@ import FacilityPhoto from "../models/FacilityPhoto.js";
 import FacilityAvailability from "../models/FacilityAvailability.js";
 import bcrypt from "bcrypt";
 
-
+////////////////
 // Facility
+////////////////
 const getAllFacilities = async (req, res) => {
   Facility.findAll({
     include: [
@@ -121,7 +122,9 @@ const deleteFacility = async (req, res) => {
     .catch(err => res.status(400).json({ msg: "Gagal menghapus fasilitas!", err }))
 }
 
+/////////////////////
 // Facility Photo
+/////////////////////
 const addFacilityPhoto = async (req, res) => {
   const { id } = req.params;
   const { facilityPhoto } = req.body;
@@ -159,7 +162,9 @@ const deleteFacilityPhoto = async (req, res) => {
   }
 }
 
+////////////////////
 // Akun Pengelola
+////////////////////
 const createAkunPengelola = async (req, res) => {
   if (req.body.password !== req.body.confirmPassword)
     return res.status(400).json({ message: "Password tidak cocok dengan Confirm Password!" })
@@ -192,8 +197,9 @@ const deleteAkunPengelola = async (req, res) => {
     .catch(err => res.status(400).json({ msg: "Gagal menghapus akun!", err }))
 }
 
-
+////////////////////
 // Transaction
+////////////////////
 const getAllTransaction = async (req, res) => {
   Transaction.findAll({
     include: [
